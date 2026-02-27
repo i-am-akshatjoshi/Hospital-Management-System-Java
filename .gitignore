@@ -1,0 +1,15 @@
+# Eclipse files
+bin/
+.settings/
+.classpath
+.project
+
+# Logs
+*.log
+
+# DB Credentials
+driverinfo.properties
+
+# OS
+.DS_Store
+Thumbs.db
