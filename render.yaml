@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: Hospital-Management-System-Java
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        value: dpg-d73d7foule4c73ese720-a.oregon-postgres.render.com
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: hmsdb_9zc0
+      - key: DB_USER
+        value: your-username
+      - key: DB_PASS
+        value: your-password
