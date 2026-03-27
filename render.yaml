@@ -5,12 +5,12 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: DB_HOST
-        value: dpg-d73d7foule4c73ese720-a.oregon-postgres.render.com
+        value: 2itt2j.h.filess.io
       - key: DB_PORT
-        value: 5432
+        value: 61032
       - key: DB_NAME
-        value: hmsdb_9zc0
+        value: hospitaldb_luckycount
       - key: DB_USER
-        value: your-username
+        value: hospitaldb_luckycount
       - key: DB_PASS
-        value: your-password
+        value: 9595ee5653468cef6df1246fc39a8450bf8f51ad
