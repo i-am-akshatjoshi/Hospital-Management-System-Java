@@ -1,1 +1,15 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource
+        name="jdbc/hmsDB"
+        auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        url="jdbc:mysql://2itt2j.h.filess.io:61032/hospitaldb_luckycount?useSSL=true&amp;requireSSL=true&amp;serverTimezone=Asia/Kolkata&amp;autoReconnect=true"
+        username="hospitaldb_luckycount"
+        password="YOUR_FILESS_PASSWORD_HERE"
+        maxTotal="10"
+        maxIdle="5"
+        maxWaitMillis="10000"
+    />
+</Context>
