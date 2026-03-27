@@ -1,5 +1,7 @@
 FROM tomcat:9.0
 
-COPY *ROOT.war /usr/local/tomcat/webapps/app.war
+RUN rm -rf /usr/local/tomcat/webapps/*
+
+COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
