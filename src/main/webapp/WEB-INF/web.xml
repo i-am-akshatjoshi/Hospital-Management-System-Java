@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <servlet>
+        <servlet-name>PatientServlet</servlet-name>
+        <servlet-class>com.hms.servlet.PatientServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientServlet</servlet-name>
+        <url-pattern>/api/patients</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DoctorServlet</servlet-name>
+        <servlet-class>com.hms.servlet.DoctorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorServlet</servlet-name>
+        <url-pattern>/api/doctors</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <servlet-class>com.hms.servlet.AppointmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AppointmentServlet</servlet-name>
+        <url-pattern>/api/appointments</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BillingServlet</servlet-name>
+        <servlet-class>com.hms.servlet.BillingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BillingServlet</servlet-name>
+        <url-pattern>/api/billing</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MedHistoryServlet</servlet-name>
+        <servlet-class>com.hms.servlet.MedHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MedHistoryServlet</servlet-name>
+        <url-pattern>/api/medhistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllergyServlet</servlet-name>
+        <servlet-class>com.hms.servlet.AllergyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllergyServlet</servlet-name>
+        <url-pattern>/api/allergies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InsuranceServlet</servlet-name>
+        <servlet-class>com.hms.servlet.InsuranceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InsuranceServlet</servlet-name>
+        <url-pattern>/api/insurance</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>VitalsServlet</servlet-name>
+        <servlet-class>com.hms.servlet.VitalsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VitalsServlet</servlet-name>
+        <url-pattern>/api/vitals</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>

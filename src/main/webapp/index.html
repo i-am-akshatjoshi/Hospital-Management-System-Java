@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="css/hms.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOP HEADER
+═══════════════════════════════════════════════════════ -->
+<header class="hms-header">
+    <div class="header-left">
+        <span class="header-icon">🏥</span>
+        <span class="header-title">HOSPITAL MANAGEMENT SYSTEM</span>
+    </div>
+    <div class="header-right">Core Java &nbsp;·&nbsp; JDBC &nbsp;·&nbsp; Oracle DB &nbsp;·&nbsp; Apache Tomcat</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB NAVIGATION
+═══════════════════════════════════════════════════════ -->
+<nav class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('patients')">👤 Patients</button>
+    <button class="tab-btn" onclick="showTab('doctors')">🩺 Doctors</button>
+    <button class="tab-btn" onclick="showTab('appointments')">📅 Appointments</button>
+    <button class="tab-btn" onclick="showTab('billing')">💰 Billing</button>
+    <button class="tab-btn" onclick="showTab('medicine')">💊 Medicine</button>
+    <button class="tab-btn" onclick="showTab('medhistory')">📋 Med. History</button>
+    <button class="tab-btn" onclick="showTab('allergies')">⚠️ Allergies</button>
+    <button class="tab-btn" onclick="showTab('insurance')">🛡️ Insurance</button>
+    <button class="tab-btn" onclick="showTab('vitals')">❤️ Vital Signs</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOAST NOTIFICATION
+═══════════════════════════════════════════════════════ -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN CONTENT AREA
+═══════════════════════════════════════════════════════ -->
+<main class="hms-main">
+
+    <!-- ── PATIENTS TAB ── -->
+    <div id="tab-patients" class="tab-panel active">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Patient Details</div>
+                <div class="form-grid">
+                    <label>Full Name *</label>
+                    <input type="text" id="pName" placeholder="Enter full name">
+
+                    <label>Gender</label>
+                    <select id="pGender">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+
+                    <label>Date of Birth</label>
+                    <input type="text" id="pDob" placeholder="DD-MM-YYYY" maxlength="10" class="date-field">
+
+                    <label>Phone (10 digits) *</label>
+                    <input type="text" id="pPhone" placeholder="9876543210" maxlength="10" class="phone-field">
+
+                    <label>Email</label>
+                    <input type="email" id="pEmail" placeholder="email@example.com">
+
+                    <label>Address</label>
+                    <input type="text" id="pAddr" placeholder="Full address">
+
+                    <label>Blood Group</label>
+                    <select id="pBlood">
+                        <option>A+</option><option>A-</option>
+                        <option>B+</option><option>B-</option>
+                        <option>AB+</option><option>AB-</option>
+                        <option>O+</option><option>O-</option>
+                    </select>
+
+                    <label>Emergency Contact</label>
+                    <input type="text" id="pEC" placeholder="10-digit number" maxlength="10" class="phone-field">
+                </div>
+                <input type="hidden" id="pId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="addPatient()">Add Patient</button>
+                    <button class="btn btn-success" onclick="updatePatient()">Update</button>
+                    <button class="btn btn-danger" onclick="deletePatient()">Delete</button>
+                </div>
+                <div class="btn-row">
+                    <input type="text" id="pSearch" placeholder="Search by name...">
+                    <button class="btn btn-purple" onclick="searchPatient()">Search</button>
+                    <button class="btn btn-gray" onclick="clearPatient()">Clear</button>
+                    <button class="btn btn-info" onclick="loadPatients()">Refresh</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Patient Records</div>
+                <div class="table-wrap">
+                    <table id="patTable">
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Gender</th><th>DOB</th><th>Phone</th><th>Email</th><th>Blood</th><th>Emergency</th></tr>
+                        </thead>
+                        <tbody id="patBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── DOCTORS TAB ── -->
+    <div id="tab-doctors" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Doctor Details</div>
+                <div class="form-grid">
+                    <label>Full Name *</label>
+                    <input type="text" id="dName" placeholder="Doctor's full name">
+
+                    <label>Gender</label>
+                    <select id="dGender">
+                        <option>Male</option><option>Female</option><option>Other</option>
+                    </select>
+
+                    <label>Date of Birth</label>
+                    <input type="text" id="dDob" placeholder="DD-MM-YYYY" maxlength="10" class="date-field">
+
+                    <label>Phone (10 digits) *</label>
+                    <input type="text" id="dPhone" placeholder="9876543210" maxlength="10" class="phone-field">
+
+                    <label>Email</label>
+                    <input type="email" id="dEmail" placeholder="doctor@hospital.com">
+
+                    <label>Address</label>
+                    <input type="text" id="dAddr" placeholder="Residential address">
+
+                    <label>Specialization</label>
+                    <input type="text" id="dSpec" placeholder="e.g. Cardiology">
+
+                    <label>Qualification</label>
+                    <input type="text" id="dQual" placeholder="e.g. MBBS, MD">
+
+                    <label>Consult Fee (Rs.) *</label>
+                    <input type="number" id="dFee" placeholder="e.g. 500" min="0" step="0.01">
+
+                    <label>Available Days</label>
+                    <input type="text" id="dDays" placeholder="e.g. Mon,Wed,Fri">
+                </div>
+                <input type="hidden" id="dId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="addDoctor()">Add Doctor</button>
+                    <button class="btn btn-success" onclick="updateDoctor()">Update</button>
+                    <button class="btn btn-danger" onclick="deleteDoctor()">Delete</button>
+                </div>
+                <div class="btn-row">
+                    <input type="text" id="dSearch" placeholder="Search by name...">
+                    <button class="btn btn-purple" onclick="searchDoctor()">Search</button>
+                    <button class="btn btn-gray" onclick="clearDoctor()">Clear</button>
+                    <button class="btn btn-info" onclick="loadDoctors()">Refresh</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Doctor Records</div>
+                <div class="table-wrap">
+                    <table id="docTable">
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Gender</th><th>Specialization</th><th>Qualification</th><th>Fee (Rs.)</th><th>Days</th></tr>
+                        </thead>
+                        <tbody id="docBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── APPOINTMENTS TAB ── -->
+    <div id="tab-appointments" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Book Appointment</div>
+                <div class="form-grid">
+                    <label>Patient *</label>
+                    <select id="aPatient"></select>
+
+                    <label>Doctor *</label>
+                    <select id="aDoctor"></select>
+
+                    <label>Date</label>
+                    <input type="text" id="aDate" placeholder="DD-MM-YYYY" maxlength="10" class="date-field">
+
+                    <label>Time</label>
+                    <input type="text" id="aTime" placeholder="HH:MM" maxlength="5">
+
+                    <label>Notes</label>
+                    <input type="text" id="aNotes" placeholder="Optional notes">
+                </div>
+                <input type="hidden" id="aId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="bookAppointment()">Book</button>
+                    <button class="btn btn-success" onclick="setApptStatus('COMPLETED')">Mark Completed</button>
+                    <button class="btn btn-danger" onclick="setApptStatus('CANCELLED')">Cancel Appt</button>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-info" onclick="loadTodayAppts()">Today's Appts</button>
+                    <button class="btn btn-gray" onclick="loadAppointments()">Refresh All</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Appointment Records</div>
+                <div class="legend">
+                    <span class="dot blue">●</span> Scheduled
+                    <span class="dot green">●</span> Completed
+                    <span class="dot red">●</span> Cancelled
+                </div>
+                <div class="table-wrap">
+                    <table id="apptTable">
+                        <thead>
+                            <tr><th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th><th>Notes</th></tr>
+                        </thead>
+                        <tbody id="apptBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── BILLING TAB ── -->
+    <div id="tab-billing" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Generate Bill</div>
+                <div class="form-grid">
+                    <label>Appointment ID *</label>
+                    <input type="number" id="bApptId" placeholder="Enter appointment ID">
+
+                    <label>Consultation (Rs.)</label>
+                    <input type="number" id="bConsult" placeholder="0.00" min="0" step="0.01" oninput="updateTotal()">
+
+                    <label>Medicine (Rs.)</label>
+                    <input type="number" id="bMedicine" placeholder="0.00" min="0" step="0.01" oninput="updateTotal()">
+
+                    <label>Tests (Rs.)</label>
+                    <input type="number" id="bTest" placeholder="0.00" min="0" step="0.01" oninput="updateTotal()">
+
+                    <label>TOTAL AMOUNT</label>
+                    <div id="bTotal" class="total-display">Rs. 0.00</div>
+                </div>
+                <input type="hidden" id="bId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="generateBill()">Generate Bill</button>
+                    <button class="btn btn-success" onclick="markPaid()">Mark as Paid</button>
+                    <button class="btn btn-danger" onclick="deleteBill()">Delete Bill</button>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-orange" onclick="loadPendingBills()">Pending Bills</button>
+                    <button class="btn btn-teal" onclick="showRevenue()">Total Revenue</button>
+                    <button class="btn btn-gray" onclick="loadBills()">Refresh</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Billing Records</div>
+                <div class="table-wrap">
+                    <table id="billTable">
+                        <thead>
+                            <tr><th>ID</th><th>Patient</th><th>Appt</th><th>Consult</th><th>Medicine</th><th>Test</th><th>Total</th><th>Date</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id="billBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MEDICINE TAB ── -->
+    <div id="tab-medicine" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Medicine Inventory</div>
+                <div class="info-box info-orange">
+                    <strong>Note:</strong> This panel is in-memory only on the web version.
+                    Connect a MedicineDAO + Oracle table to persist data across sessions.
+                </div>
+                <div class="form-grid">
+                    <label>Medicine Name *</label>
+                    <input type="text" id="mName" placeholder="e.g. Paracetamol">
+
+                    <label>Dosage / Form</label>
+                    <input type="text" id="mDose" placeholder="e.g. 500mg Tablet">
+
+                    <label>Quantity in Stock</label>
+                    <input type="number" id="mQty" placeholder="e.g. 100" min="0">
+
+                    <label>Price per Unit (Rs.)</label>
+                    <input type="number" id="mPrice" placeholder="e.g. 5.50" min="0" step="0.01">
+                </div>
+                <input type="hidden" id="mRowId" value="1">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="addMedicine()">Add</button>
+                    <button class="btn btn-success" onclick="updateMedicine()">Update</button>
+                    <button class="btn btn-danger" onclick="removeMedicine()">Remove</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Medicine Stock</div>
+                <div class="legend">
+                    <span class="dot green">●</span> In Stock
+                    <span class="dot orange">●</span> Low Stock
+                    <span class="dot red">●</span> Out of Stock
+                </div>
+                <div class="table-wrap">
+                    <table id="medTable">
+                        <thead>
+                            <tr><th>#</th><th>Medicine</th><th>Dosage</th><th>Qty</th><th>Price</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id="medBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MEDICAL HISTORY TAB ── -->
+    <div id="tab-medhistory" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Patient Medical History</div>
+                <div class="info-box info-blue">
+                    Enter Patient ID, fill in details, then click Add Record.
+                    Click Load History to view past records.
+                </div>
+                <div class="form-grid">
+                    <label>Patient ID *</label>
+                    <input type="number" id="hPatId" placeholder="Enter patient ID">
+
+                    <label>Condition / Disease *</label>
+                    <input type="text" id="hCondition" placeholder="e.g. Diabetes Type 2">
+
+                    <label>Diagnosed Date</label>
+                    <input type="text" id="hDate" placeholder="DD-MM-YYYY" maxlength="10" class="date-field">
+
+                    <label>Treatment Given</label>
+                    <input type="text" id="hTreatment" placeholder="Treatment details">
+
+                    <label>Is Chronic?</label>
+                    <select id="hChronic">
+                        <option value="NO">NO</option>
+                        <option value="YES">YES</option>
+                    </select>
+
+                    <label>Notes</label>
+                    <input type="text" id="hNotes" placeholder="Additional notes">
+                </div>
+                <input type="hidden" id="hId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="addMedHistory()">Add Record</button>
+                    <button class="btn btn-info" onclick="loadMedHistory()">Load History</button>
+                    <button class="btn btn-danger" onclick="deleteMedHistory()">Delete</button>
+                    <button class="btn btn-gray" onclick="clearMedHistory()">Clear</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Medical History Records</div>
+                <div class="legend">
+                    <span class="dot red">●</span> YES = Chronic
+                    <span class="dot green">●</span> NO = Not Chronic
+                </div>
+                <div class="table-wrap">
+                    <table id="histTable">
+                        <thead>
+                            <tr><th>ID</th><th>Pat.ID</th><th>Condition</th><th>Diagnosed</th><th>Treatment</th><th>Chronic?</th><th>Notes</th></tr>
+                        </thead>
+                        <tbody id="histBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── ALLERGIES TAB ── -->
+    <div id="tab-allergies" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Patient Allergy Information</div>
+                <div class="info-box info-red">
+                    ⚠ Always check patient allergies BEFORE prescribing any medicine!
+                </div>
+                <div class="form-grid">
+                    <label>Patient ID *</label>
+                    <input type="number" id="alPatId" placeholder="Enter patient ID">
+
+                    <label>Allergy Type</label>
+                    <select id="alType">
+                        <option>MEDICINE</option><option>FOOD</option>
+                        <option>ENVIRONMENT</option><option>OTHER</option>
+                    </select>
+
+                    <label>Allergy Name *</label>
+                    <input type="text" id="alName" placeholder="e.g. Penicillin, Peanuts">
+
+                    <label>Severity</label>
+                    <select id="alSeverity">
+                        <option>MILD</option><option>MODERATE</option><option>SEVERE</option>
+                    </select>
+
+                    <label>Reaction</label>
+                    <input type="text" id="alReaction" placeholder="e.g. Rash, Anaphylaxis">
+                </div>
+                <input type="hidden" id="alId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="addAllergy()">Add Allergy</button>
+                    <button class="btn btn-info" onclick="loadAllergies()">Load Allergies</button>
+                    <button class="btn btn-danger" onclick="deleteAllergy()">Delete</button>
+                    <button class="btn btn-gray" onclick="clearAllergy()">Clear</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Allergy Records</div>
+                <div class="legend">
+                    <span class="dot red">●</span> SEVERE
+                    <span class="dot orange">●</span> MODERATE
+                    <span class="dot green">●</span> MILD
+                </div>
+                <div class="table-wrap">
+                    <table id="allergyTable">
+                        <thead>
+                            <tr><th>ID</th><th>Pat.ID</th><th>Type</th><th>Allergy Name</th><th>Severity</th><th>Reaction</th></tr>
+                        </thead>
+                        <tbody id="allergyBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── INSURANCE TAB ── -->
+    <div id="tab-insurance" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Health Insurance Details</div>
+                <div class="info-box info-green">
+                    Enter Patient ID and insurance details. Click Load Records to view existing policies.
+                </div>
+                <div class="form-grid">
+                    <label>Patient ID *</label>
+                    <input type="number" id="inPatId" placeholder="Enter patient ID">
+
+                    <label>Insurance Provider *</label>
+                    <input type="text" id="inProvider" placeholder="e.g. Star Health, HDFC ERGO">
+
+                    <label>Policy Number *</label>
+                    <input type="text" id="inPolicy" placeholder="Policy number">
+
+                    <label>Coverage Amt (Rs.)</label>
+                    <input type="number" id="inCoverage" placeholder="e.g. 500000" min="0" step="0.01">
+
+                    <label>Valid From</label>
+                    <input type="text" id="inFrom" placeholder="DD-MM-YYYY" maxlength="10" class="date-field">
+
+                    <label>Valid To</label>
+                    <input type="text" id="inTo" placeholder="DD-MM-YYYY" maxlength="10" class="date-field">
+
+                    <label>Policy Type</label>
+                    <select id="inType">
+                        <option>Individual</option><option>Family</option>
+                        <option>Group</option><option>Senior Citizen</option>
+                    </select>
+
+                    <label>Status</label>
+                    <select id="inStatus">
+                        <option>ACTIVE</option><option>EXPIRED</option><option>SUSPENDED</option>
+                    </select>
+                </div>
+                <input type="hidden" id="inId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="addInsurance()">Add Insurance</button>
+                    <button class="btn btn-info" onclick="loadInsurance()">Load Records</button>
+                    <button class="btn btn-orange" onclick="markInsuranceExpired()">Mark Expired</button>
+                    <button class="btn btn-danger" onclick="deleteInsurance()">Delete</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Insurance Records</div>
+                <div class="legend">
+                    <span class="dot green">●</span> ACTIVE
+                    <span class="dot orange">●</span> SUSPENDED
+                    <span class="dot red">●</span> EXPIRED
+                </div>
+                <div class="table-wrap">
+                    <table id="insTable">
+                        <thead>
+                            <tr><th>ID</th><th>Pat.</th><th>Provider</th><th>Policy No.</th><th>Coverage</th><th>From</th><th>To</th><th>Type</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id="insBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── VITAL SIGNS TAB ── -->
+    <div id="tab-vitals" class="tab-panel">
+        <div class="panel-layout">
+            <div class="form-card">
+                <div class="card-title">Record Vital Signs</div>
+                <div class="form-grid">
+                    <label>Patient ID *</label>
+                    <input type="number" id="vPatId" placeholder="Enter patient ID">
+
+                    <label>Appointment ID</label>
+                    <input type="number" id="vApptId" placeholder="Optional">
+
+                    <label>Blood Pressure (mmHg)</label>
+                    <input type="text" id="vBP" placeholder="e.g. 120/80">
+
+                    <label>Pulse Rate (bpm)</label>
+                    <input type="number" id="vPulse" placeholder="e.g. 72" min="0">
+
+                    <label>Temperature (°C)</label>
+                    <input type="number" id="vTemp" placeholder="e.g. 37.0" step="0.1" min="0">
+
+                    <label>Oxygen Level (SpO2%)</label>
+                    <input type="number" id="vOxygen" placeholder="e.g. 98.5" step="0.1" min="0" max="100">
+
+                    <label>Weight (kg)</label>
+                    <input type="number" id="vWeight" placeholder="e.g. 68" step="0.1" min="0" oninput="calcBMI()">
+
+                    <label>Height (cm)</label>
+                    <input type="number" id="vHeight" placeholder="e.g. 172" step="0.1" min="0" oninput="calcBMI()">
+
+                    <label>Notes</label>
+                    <input type="text" id="vNotes" placeholder="Optional notes">
+                </div>
+                <div id="bmiDisplay" class="bmi-display">BMI: —</div>
+                <input type="hidden" id="vId">
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="saveVitals()">Save Vitals</button>
+                    <button class="btn btn-info" onclick="loadVitals()">Load History</button>
+                    <button class="btn btn-danger" onclick="deleteVitals()">Delete</button>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card-title">Vital Signs History</div>
+                <!-- Normal Ranges Reference Box -->
+                <div class="ranges-box">
+                    <div class="range-cell"><span class="range-label">Blood Pressure</span><span class="range-val green">90/60 – 120/80 mmHg</span></div>
+                    <div class="range-cell"><span class="range-label">Pulse Rate</span><span class="range-val green">60 – 100 bpm</span></div>
+                    <div class="range-cell"><span class="range-label">Temperature</span><span class="range-val green">36.1 – 37.2 °C</span></div>
+                    <div class="range-cell"><span class="range-label">Oxygen (SpO2)</span><span class="range-val green">95 – 100 %</span></div>
+                    <div class="range-cell"><span class="range-label">BMI Normal</span><span class="range-val green">18.5 – 24.9</span></div>
+                    <div class="range-cell"><span class="range-label">BMI Overweight</span><span class="range-val orange">25.0 – 29.9</span></div>
+                    <div class="range-cell"><span class="range-label">BMI Obese</span><span class="range-val red">30.0 and above</span></div>
+                    <div class="range-cell"><span class="range-label">BMI Underweight</span><span class="range-val orange">Below 18.5</span></div>
+                </div>
+                <div class="table-wrap">
+                    <table id="vitalsTable">
+                        <thead>
+                            <tr><th>ID</th><th>Pat.</th><th>Appt.</th><th>Date</th><th>BP</th><th>Pulse</th><th>Temp</th><th>SpO2</th><th>Wt</th><th>Ht</th><th>BMI</th><th>Notes</th></tr>
+                        </thead>
+                        <tbody id="vitalsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- STATUS BAR -->
+<footer class="hms-footer">
+    HMS v2.0 — Hospital Management System | Apache Tomcat | Oracle DB | Ready
+</footer>
+
+<!-- SCRIPTS -->
+<script src="js/hms.js"></script>
+<script src="js/patients.js"></script>
+<script src="js/doctors.js"></script>
+<script src="js/appointments.js"></script>
+<script src="js/billing.js"></script>
+<script src="js/medicine.js"></script>
+<script src="js/medhistory.js"></script>
+<script src="js/allergies.js"></script>
+<script src="js/insurance.js"></script>
+<script src="js/vitals.js"></script>
+
+</body>
+</html>

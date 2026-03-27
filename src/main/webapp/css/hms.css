@@ -1,0 +1,422 @@
+/* ═══════════════════════════════════════════════════════════
+   HMS — Hospital Management System
+   CSS Theme: Steel Blue + White (matches Swing UI exactly)
+═══════════════════════════════════════════════════════════ */
+
+/* ── CSS Variables ── */
+:root {
+    --blue-dark:   #1e508c;
+    --blue-mid:    #3273b9;
+    --blue-light:  #dceafa;
+    --white:       #ffffff;
+    --gray-bg:     #e1e8f5;
+    --gray-panel:  #ffffff;
+    --gray-border: #c8d2e1;
+    --text-dark:   #05172a;
+    --text-gray:   #1e3259;
+    --green:       #228b22;
+    --red:         #b41e1e;
+    --orange:      #c86e00;
+    --row-even:    #ebf5ff;
+    --row-odd:     #d7e8fa;
+    --row-sel:     #64a0dc;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-size: 13px;
+    background: var(--gray-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── HEADER ── */
+.hms-header {
+    background: var(--blue-dark);
+    color: white;
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon { font-size: 22px; }
+
+.header-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.header-right {
+    font-size: 11px;
+    color: #b4cdeb;
+}
+
+/* ── TAB NAV ── */
+.tab-nav {
+    background: #1a4a7a;
+    display: flex;
+    padding: 0 12px;
+    gap: 2px;
+    overflow-x: auto;
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: #a8c4e0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: inherit;
+}
+
+.tab-btn:hover {
+    color: white;
+    background: rgba(255,255,255,0.08);
+}
+
+.tab-btn.active {
+    color: white;
+    border-bottom: 3px solid #64b0f0;
+    background: rgba(255,255,255,0.12);
+}
+
+/* ── MAIN CONTENT ── */
+.hms-main {
+    flex: 1;
+    padding: 14px;
+    overflow: auto;
+}
+
+/* ── TAB PANELS ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── PANEL LAYOUT: left form | right table ── */
+.panel-layout {
+    display: flex;
+    gap: 14px;
+    height: calc(100vh - 165px);
+}
+
+/* ── CARDS ── */
+.form-card, .table-card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.form-card {
+    width: 320px;
+    min-width: 320px;
+    flex-shrink: 0;
+    overflow-y: auto;
+}
+
+.table-card {
+    flex: 1;
+    overflow: hidden;
+}
+
+.card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    border-bottom: 2px solid var(--blue-light);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+/* ── FORM GRID ── */
+.form-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 10px;
+    align-items: center;
+}
+
+.form-grid label {
+    font-weight: 600;
+    color: #142850;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* ── INPUTS ── */
+.form-grid input,
+.form-grid select {
+    height: 32px;
+    padding: 4px 8px;
+    border: 1px solid var(--gray-border);
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: inherit;
+    color: var(--text-dark);
+    background: #f5faff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+    outline: none;
+    border-color: var(--blue-mid);
+    box-shadow: 0 0 0 2px rgba(50,115,185,0.15);
+}
+
+/* Date field — turns red if wrong format */
+.date-field.invalid { border-color: var(--red) !important; box-shadow: 0 0 0 2px rgba(180,30,30,0.15) !important; }
+
+/* Phone field — turns red if not 10 digits */
+.phone-field.invalid { border-color: var(--red) !important; box-shadow: 0 0 0 2px rgba(180,30,30,0.15) !important; }
+
+/* ── BUTTON ROW ── */
+.btn-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btn-row input[type="text"] {
+    flex: 1;
+    height: 32px;
+    padding: 4px 8px;
+    border: 1px solid var(--gray-border);
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: inherit;
+    background: #f5faff;
+    min-width: 0;
+}
+
+.btn-row input[type="text"]:focus {
+    outline: none;
+    border-color: var(--blue-mid);
+}
+
+/* ── BUTTONS ── */
+.btn {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: filter 0.12s;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.btn:hover { filter: brightness(0.88); }
+
+.btn-primary  { background: var(--blue-dark); }
+.btn-success  { background: #006e3c; }
+.btn-danger   { background: var(--red); }
+.btn-purple   { background: #503c96; }
+.btn-gray     { background: #505a72; color: #fff; }
+.btn-info     { background: #006e8c; }
+.btn-orange   { background: var(--orange); }
+.btn-teal     { background: #006450; }
+
+/* ── INFO BOXES ── */
+.info-box {
+    padding: 8px 10px;
+    border-radius: 3px;
+    font-size: 11px;
+    line-height: 1.5;
+    border: 1px solid;
+}
+.info-blue   { background: #ebf5ff; border-color: var(--blue-dark); color: var(--blue-dark); }
+.info-red    { background: #ffebeb; border-color: #a01414; color: #a01414; font-weight: 600; }
+.info-green  { background: #ebf8f0; border-color: #006432; color: #006432; }
+.info-orange { background: #fff8e0; border-color: var(--orange); color: #7d4500; }
+
+/* ── TABLE WRAPPER ── */
+.table-wrap {
+    flex: 1;
+    overflow: auto;
+    border: 1px solid var(--gray-border);
+    border-radius: 3px;
+}
+
+/* ── TABLES ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+thead tr {
+    background: #143c78;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+thead th {
+    padding: 9px 10px;
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+tbody tr:nth-child(even) { background: var(--row-even); }
+tbody tr:nth-child(odd)  { background: var(--row-odd); }
+
+tbody tr:hover { background: #c0d8f0; cursor: pointer; }
+tbody tr.selected { background: var(--row-sel) !important; color: white; }
+tbody tr.selected td { color: white; }
+
+tbody td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #d0dff0;
+    white-space: nowrap;
+    color: var(--text-dark);
+}
+
+/* Status colors in table cells */
+.status-completed { color: var(--green); font-weight: 700; }
+.status-cancelled { color: var(--red);   font-weight: 700; }
+.status-scheduled { color: var(--blue-mid); font-weight: 700; }
+.status-paid      { color: var(--green); font-weight: 700; }
+.status-pending   { color: var(--orange); font-weight: 700; }
+.status-active    { color: var(--green); font-weight: 700; }
+.status-expired   { color: var(--red);   font-weight: 700; }
+.status-suspended { color: var(--orange); font-weight: 700; }
+.chronic-yes      { color: var(--red);   font-weight: 700; }
+.chronic-no       { color: var(--green); font-weight: 700; }
+.sev-severe       { color: var(--red);   font-weight: 700; }
+.sev-moderate     { color: var(--orange); font-weight: 700; }
+.sev-mild         { color: var(--green); font-weight: 700; }
+.stock-in         { color: var(--green); font-weight: 700; }
+.stock-low        { color: var(--orange); font-weight: 700; }
+.stock-out        { color: var(--red);   font-weight: 700; }
+
+/* ── LEGEND ── */
+.legend {
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    gap: 16px;
+    padding: 4px 0;
+}
+.dot       { font-size: 14px; }
+.dot.green  { color: var(--green); }
+.dot.red    { color: var(--red); }
+.dot.blue   { color: var(--blue-mid); }
+.dot.orange { color: var(--orange); }
+
+/* ── TOTAL DISPLAY (billing) ── */
+.total-display {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    padding: 4px 0;
+}
+
+/* ── BMI DISPLAY ── */
+.bmi-display {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    padding: 4px 0;
+    min-height: 24px;
+}
+
+/* ── NORMAL RANGES BOX (vitals) ── */
+.ranges-box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    background: #ebf8f0;
+    border: 1px solid #64b478;
+    border-radius: 3px;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.range-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.range-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #1e501e;
+}
+
+.range-val {
+    font-size: 10px;
+}
+
+.range-val.green  { color: var(--green); }
+.range-val.orange { color: var(--orange); }
+.range-val.red    { color: var(--red); }
+
+/* ── TOAST NOTIFICATION ── */
+.toast {
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transition: opacity 0.3s;
+    max-width: 360px;
+}
+.toast.success { background: var(--green); color: white; }
+.toast.error   { background: var(--red);   color: white; }
+.toast.warn    { background: var(--orange); color: white; }
+.toast.hidden  { display: none; }
+
+/* ── FOOTER ── */
+.hms-footer {
+    background: #d7e1f0;
+    padding: 4px 16px;
+    font-size: 11px;
+    color: #142850;
+    flex-shrink: 0;
+    border-top: 1px solid var(--gray-border);
+}
+
+/* ── SCROLLBAR STYLING ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #e8eef8; }
+::-webkit-scrollbar-thumb { background: #a0b4d0; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7090b8; }
