@@ -3,14 +3,3 @@ services:
     name: Hospital-Management-System-Java
     runtime: docker
     dockerfilePath: ./Dockerfile
-    envVars:
-      - key: DB_HOST
-        value: 2itt2j.h.filess.io
-      - key: DB_PORT
-        value: 61032
-      - key: DB_NAME
-        value: hospitaldb_luckycount
-      - key: DB_USER
-        value: hospitaldb_luckycount
-      - key: DB_PASS
-        value: 9595ee5653468cef6df1246fc39a8450bf8f51ad
