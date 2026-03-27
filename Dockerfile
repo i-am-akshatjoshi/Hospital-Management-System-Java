@@ -2,7 +2,7 @@ FROM tomcat:10.1-jdk11
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY target/hospital.war /usr/local/tomcat/webapps/ROOT.war
+COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
